@@ -1,5 +1,6 @@
 use walkdir::WalkDir;
 
+#[derive(Debug)]
 pub struct File {
     name: String,
     path: String,
@@ -25,9 +26,9 @@ pub fn walk_dir(root: String) -> Vec<File> {
 
     for file in WalkDir::new(root).into_iter().filter_map(|e| e.ok()) {
         let name = file.file_name().to_string_lossy().to_string();
-        let path = file.path().display().to_string();
+        let path = file.path().display().to_string().replace("\\", "/");
         let size = file.metadata().unwrap().len();
-        let extension = file.path().extension().unwrap().to_string_lossy().to_string();
+        let extension = file.path().extension().unwrap_or_default().to_string_lossy().to_string();
         let is_modified = false;
 
         let file = File::new(name, path, size, extension, is_modified);
