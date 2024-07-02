@@ -2,11 +2,11 @@ use walkdir::WalkDir;
 
 #[derive(Debug)]
 pub struct File {
-    name: String,
-    path: String,
-    size: u64,
-    extension: String,
-    is_modified: bool,
+    pub name: String,
+    pub path: String,
+    pub size: u64,
+    pub extension: String,
+    pub is_modified: bool,
 }
 
 impl File {
