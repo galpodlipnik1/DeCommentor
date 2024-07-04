@@ -10,7 +10,7 @@ pub struct File {
 }
 
 impl File {
-    fn new(name: String, path: String, size: u64, extension: String, is_modified: bool) -> File {
+    pub fn new(name: String, path: String, size: u64, extension: String, is_modified: bool) -> File {
         File {
             name,
             path,
@@ -21,7 +21,7 @@ impl File {
     }
 }
 
-pub fn walk_dir(root: String) -> Vec<File> {
+pub fn walk_dir(root: &String) -> Vec<File> {
     let mut files: Vec<File> = Vec::new();
 
     for file in WalkDir::new(root).into_iter().filter_map(|e| e.ok()) {
@@ -36,4 +36,25 @@ pub fn walk_dir(root: String) -> Vec<File> {
     }
 
     files
+}
+
+#[allow(dead_code)]
+pub fn remove_example_files() { 
+    println!("Removing all pretty files from examples directory");
+    let files = walk_dir(&String::from("examples"));
+    println!();
+    for file in files {
+        if file.name.contains("pretty") {
+            println!("{:?}", file);
+            match std::fs::remove_file(&file.path) {
+                Ok(_) => println!("Successfully removed file: {:?}", file.path),
+                Err(e) => println!("Failed to remove file: {:?}, error: {:?}", file.path, e),
+            }
+        }
+    }
+}
+
+#[allow(dead_code)]
+pub fn beautify(content: String) -> String {
+    content.lines().filter(|line| !line.trim().is_empty()).collect::<Vec<&str>>().join("\n")
 }
