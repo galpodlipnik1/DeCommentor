@@ -1,5 +1,5 @@
 use std::fs;
-
+use colored::*;
 use walkdir::WalkDir;
 
 #[derive(Debug)]
@@ -48,15 +48,14 @@ pub fn walk_dir(root: &String) -> Vec<File> {
 
 #[allow(dead_code)]
 pub fn remove_example_files() { 
-    println!("Removing all pretty files from examples directory");
+    println!("{}", "Removing example files...".bold().red());
     let files = walk_dir(&String::from("examples"));
     println!();
     for file in files {
         if file.name.contains("pretty") {
-            println!("{:?}", file);
             match std::fs::remove_file(&file.path) {
-                Ok(_) => println!("Successfully removed file: {:?}", file.path),
                 Err(e) => println!("Failed to remove file: {:?}, error: {:?}", file.path, e),
+                Ok(_) => ()
             }
         }
     }
