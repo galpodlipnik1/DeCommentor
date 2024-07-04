@@ -25,15 +25,16 @@ pub fn get_file_contents(file: &File) -> Option<String> {
     }
 }
 
-pub fn remove_comments(content: String, file: File) -> (String, File) {
-    println!("Removing comments from {}", file.name);
-
+pub fn remove_comments(content: String, file: File) -> Result<File, std::io::Empty> {
     let mut new_content = String::new();
+    let mut is_modified = false;
     let lines = content.split('\n');
     for line in lines {
         if !COMMENT_REGEX.is_match(line.trim()) {
             new_content.push_str(line);
             new_content.push('\n'); 
+        } else {
+            is_modified = true;
         }
     }
     let beautified_content = beautify(new_content);
@@ -50,7 +51,7 @@ pub fn remove_comments(content: String, file: File) -> (String, File) {
     new_file.write_all(beautified_content.as_bytes()).expect("Unable to write data");
 
     
-    let updated_file = File::new(file.name, new_file_path.to_str().unwrap().to_string(), file.size, file.extension, true);
+    let updated_file = File::new(file.name, new_file_path.to_str().unwrap().to_string(), file.size, file.extension, is_modified);
 
-    (beautified_content, updated_file)
+    Ok(updated_file)
 }

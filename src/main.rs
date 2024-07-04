@@ -21,7 +21,7 @@ fn main() {
     
     //REMOVE BEFORE PROD:
     remove_example_files();
-
+    
     run(args.path);
 
     let duration = start.elapsed();
