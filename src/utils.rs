@@ -1,3 +1,5 @@
+use std::fs;
+
 use walkdir::WalkDir;
 
 #[derive(Debug)]
@@ -21,6 +23,10 @@ impl File {
     }
 }
 
+pub fn is_dir(file: &File) -> bool {
+    fs::metadata(&file.path).unwrap().is_dir()
+}
+
 pub fn walk_dir(root: &String) -> Vec<File> {
     let mut files: Vec<File> = Vec::new();
 
@@ -32,7 +38,9 @@ pub fn walk_dir(root: &String) -> Vec<File> {
         let is_modified = false;
 
         let file = File::new(name, path, size, extension, is_modified);
-        files.push(file);
+        if !is_dir(&file) {
+            files.push(file);
+        }
     }
 
     files
