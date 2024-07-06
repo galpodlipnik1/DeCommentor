@@ -2,7 +2,7 @@ use std::fs;
 use colored::*;
 use walkdir::WalkDir;
 
-#[derive(Debug)]
+#[allow(dead_code)]
 pub struct File {
     pub name: String,
     pub path: String,
