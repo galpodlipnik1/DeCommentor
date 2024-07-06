@@ -1,6 +1,6 @@
 use clap::Parser;
 use std::time::Instant;
-use de_commentor::run;
+use neatify::run;
 use utils::remove_example_files;
 
 
