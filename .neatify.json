@@ -1,0 +1,10 @@
+{
+    "indent": 2,
+    "removeComments": true,
+    "removeEmptyLines": true,
+    "removeTrailingSpaces": true,
+    "quoteStyle": "double",
+    "bracketSpacing": true,
+    "ignore": [],
+    "path": "./examples"
+}

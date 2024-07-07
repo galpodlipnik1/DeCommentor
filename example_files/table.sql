@@ -1,3 +1,4 @@
+-- Date: 2020-06-01
 CREATE TABLE `table` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -5,3 +6,6 @@ CREATE TABLE `table` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  
+  
+  
